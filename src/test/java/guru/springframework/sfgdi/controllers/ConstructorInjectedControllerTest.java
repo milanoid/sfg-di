@@ -1,24 +1,29 @@
 package guru.springframework.sfgdi.controllers;
 
+import guru.springframework.sfgdi.services.GreetingServiceCzechImpl;
 import guru.springframework.sfgdi.services.GreetingServiceImpl;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class ConstructorInjectedControllerTest {
 
-    ConstructorInjectedController controller;
+    ConstructorInjectedController controllerEN;
+    ConstructorInjectedController controllerCZ;
 
     @BeforeEach
     void setUp() {
-        controller = new ConstructorInjectedController(new GreetingServiceImpl());
+        controllerEN = new ConstructorInjectedController(new GreetingServiceImpl());
+        controllerCZ = new ConstructorInjectedController(new GreetingServiceCzechImpl());
     }
 
     @Test
     void getGreeting() {
+        assert controllerEN.getGreeting().equals("Hello World");
+    }
 
-        System.out.println(controller.getGreeting());
-
+    @Test
+    void getGreetingCZ() {
+        assert controllerCZ.getGreeting().equals("Ahoj!");
     }
 }
